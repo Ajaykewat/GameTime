@@ -1,38 +1,93 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useEffect } from 'react';
-import SoundPlayer from 'react-native-sound-player'
 
 
+import React, {useEffect, useState} from 'react';
+import {View, StyleSheet, TouchableOpacity,Text, Dimensions} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Fireworks from 'react-native-fireworks';
+
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
+
+var Sound = require('react-native-sound');
+
+
+Sound.setCategory('Playback');
+
+
+var ding = new Sound('Clapping.mp3', Sound.MAIN_BUNDLE, (error) => {
+if (error) {
+    console.log('failed to load the sound', error);
+    return;
+  }
+  // if loaded successfully
+  console.log('duration in seconds: ' + ding.getDuration() + 'number of channels: ' + ding.getNumberOfChannels());
+
+});
 const SoundScreen = () => {
-useEffect(()=>{
-    playSong()
-    getInfo()
 
-},[])
-const playSong =()=> {
-    try {
-      SoundPlayer.playSoundFile('Clapping', 'm4a')
-    } catch (e) {
-      alert('Cannot play the file')
-      console.log('cannot play the song file', e)
-    }
-  }
+  const[ShowFireWorks,setShowFireWorks]=useState(false);
 
-  const getInfo=async()=> { // You need the keyword `async`
-    try {
-      const info = await SoundPlayer.getInfo() // Also, you need to await this because it is async
-      console.log('getInfo', info) // {duration: 12.416, currentTime: 7.691}
-    } catch (e) {
-      console.log('There is no song playing', e)
-    }
-  }
+ 
+
+  useEffect(() => {
+    ding.setVolume(1);
+    return () => {
+      ding.release();
+    };
+  }, []);
+  const playPause = () => {
+    setShowFireWorks(true);
+    ding.play(success => {
+      
+      if (success) {
+        console.log('successfully finished playing');
+        setShowFireWorks(false);
+      } else {
+        console.log('playback failed due to audio decoding errors');
+        setShowFireWorks(false);
+      }
+    });
+  };
   return (
-    <View>
-      <Text>SoundScreen</Text>
+    <View style={styles.container}>
+      {
+        ShowFireWorks && (
+          // <Fireworks
+         
+          // />
+          <Fireworks
+  speed={3}
+  density={8}
+  colors={['#ff0','#ff3','#cc0','#ff4500','#ff6347']}
+  iterations={5}
+  height={height}
+  width={width}
+  zIndex={2}
+  circular={true}
+/>
+        )
+      }
+      <TouchableOpacity style={styles.playBtn} onPress={playPause}>
+        <Ionicons name={'ios-play-outline'} size={36} color={'#fff'} />
+        <Text 
+        style={{
+          color:"#fff",
+          fontSize:20
+        }}
+        >play</Text>
+      </TouchableOpacity>
     </View>
-  )
-}
-
-export default SoundScreen
-
-const styles = StyleSheet.create({})
+  );
+};
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#000',
+  },
+  playBtn: {
+    padding: 20,
+  },
+});
+export default SoundScreen;
