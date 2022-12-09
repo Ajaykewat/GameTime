@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import WheelOfFortune from 'react-native-wheel-of-fortune';
 import { Peoples } from '../DummyData/PeopleNames';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fireworks from 'react-native-fireworks';
 
 const width = Dimensions.get('window').width;
@@ -49,6 +48,18 @@ class CombineBoth extends Component {
   }
 
 
+  componentDidMount(){
+    ding.setVolume(1);
+    console.log("DidMount")
+  }
+
+  componentWillUnmount(){
+    ding.release();
+    console.log("unMount")
+
+  }
+
+
 
   buttonPress = () => {
     this.setState({
@@ -70,6 +81,18 @@ class CombineBoth extends Component {
       knobSource: require('../../knob.png'),
       onRef: ref => (this.child = ref),
     };
+
+    const playPause = () => {
+      ding.play(success => {
+        
+        if (success) {
+          console.log('successfully finished playing');
+        } else {
+          console.log('playback failed due to audio decoding errors');
+        }
+      });
+    };
+
     return (
       <View style={styles.container}>
         <StatusBar barStyle={'light-content'} />
@@ -77,6 +100,7 @@ class CombineBoth extends Component {
           options={wheelOptions}
           getWinner={(value, index) => {
             this.setState({winnerValue: value, winnerIndex: index});
+            playPause();
           }}
         />
         {!this.state.started && (
@@ -91,6 +115,7 @@ class CombineBoth extends Component {
 {/* Winner Name */}
 
 {this.state.winnerIndex != null && (
+  <>
           <View style={styles.startButtonView}>
             <View
               onPress={() => this.buttonPress()}
@@ -108,6 +133,18 @@ class CombineBoth extends Component {
             </TouchableOpacity>
             </View>
           </View>
+
+          <Fireworks
+  speed={3}
+  density={8}
+  colors={['#ff0','#ff3','#cc0','#ff4500','#ff6347']}
+  iterations={5}
+  height={height}
+  width={width}
+  zIndex={2}
+  circular={true}
+/>
+          </>
         )}
 
         {/* {this.state.winnerIndex != null && (
