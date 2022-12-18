@@ -121,7 +121,7 @@ class CombineBoth extends Component {
               onPress={() => this.buttonPress()}
               style={styles.ShowResult}>
               <Text style={styles.ShowResultText}>
-             Winner is {Peoples[this.state.winnerIndex]}
+             Lucky Name is {Peoples[this.state.winnerIndex]}
               </Text>
               <TouchableOpacity
               onPress={() => {

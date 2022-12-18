@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1095636559154",
+    "project_id": "gametime-61320",
+    "storage_bucket": "gametime-61320.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095636559154:android:adabc20bf9cbba859fe32b",
+        "android_client_info": {
+          "package_name": "com.gametime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095636559154-jj7vpf0i5h2dpq6bc67dqtenou550g5c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gametime",
+            "certificate_hash": "4fd8e7ed84fc42ea7373dd80f26fe169b9c7f89b"
+          }
+        },
+        {
+          "client_id": "1095636559154-m75fvbfs8ilhq4ofo07o1t2rhoo278g1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu4v5mNwlfEZhROgdLakSzTpX2Y8YBhwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095636559154-m75fvbfs8ilhq4ofo07o1t2rhoo278g1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
